@@ -1,28 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Interactive Storytelling Platform</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='styles/style.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    {% include 'navbar.html' %}
     <div class="container mt-4">
-        <h1>Interactive Storytelling Platform</h1>
-        <form method="POST" action="/generate_story">
-            <div class="form-group">
-                <label for="storyPrompt">Enter your story prompt:</label>
-                <textarea class="form-control" id="storyPrompt" name="prompt" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Generate Story Continuation</button>
-        </form>
-        {% if prompt %}
-            <h3>Prompt:</h3>
-            <p>{{ prompt }}</p>
-        {% endif %}
-        {% if result %}
-            <h3>Generated Story Continuation:</h3>
-            <p>{{ result }}</p>
-        {% endif %}
+      <h1>Interactive Storytelling Platform</h1>
+      <form method="POST" action="/generate_story">
+        <div class="form-group">
+          <label for="storyPrompt">Enter your story prompt:</label>
+          <textarea
+            class="form-control"
+            id="storyPrompt"
+            name="prompt"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Generate Story Continuation
+        </button>
+      </form>
+      {% if prompt %}
+      <h3>Prompt:</h3>
+      <p>{{ prompt }}</p>
+      {% endif %} {% if result %}
+      <!-- <h3>Generated Story Continuation:</h3>
+            <p>{{ result }}</p> -->
+      <h3>Generated Story Continuation:</h3>
+      <!-- Split the text into paragraphs -->
+      {% for paragraph in result.split('\n\n') %}
+      <p>{{ paragraph }}</p>
+      {% endfor %} {% endif %}
     </div>
-</body>
+  
+  </body>
 </html>
